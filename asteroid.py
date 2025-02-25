@@ -91,9 +91,14 @@ def draw_bullet(x, y):
 
 # Display text
 def draw_text(text, x, y):
+    """ Render text using Pygame fonts and blit it as a texture """
+    font = pygame.font.Font(None, 36)
+    text_surface = font.render(text, True, (255, 255, 255), (0, 0, 0))
+    text_data = pygame.image.tostring(text_surface, "RGBA", True)
+    
     glWindowPos2f(x, y)
-    for char in text:
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, ord(char))
+    glDrawPixels(text_surface.get_width(), text_surface.get_height(), GL_RGBA, GL_UNSIGNED_BYTE, text_data)
+
 
 # Show countdown before game starts
 def countdown():
